@@ -1,0 +1,15 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma/client"
+}
+
+model Evento {
+  id    Int      @id @default(autoincrement())
+  title String
+  start DateTime
+  end   DateTime
+}
