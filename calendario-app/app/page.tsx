@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -25,13 +26,7 @@ export default function Home() {
 
   const [view, setView] = useState<'month' | 'week' | 'day'>('month');
 
-  const [events, setEvents] = useState<Event[]>([
-    {
-      start: dayjs().toDate(),
-      end: dayjs().add(1, 'hour').toDate(),
-      title: 'Today',
-    },
-  ]);
+  const [events, setEvents] = useState<Event[]>([]);
 
   const [newEvent, setNewEvent] = useState<NewEvent>({
     title: '',
@@ -42,10 +37,22 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
+  // Obtener la fecha actual cuando el componente se carga
   useEffect(() => {
-    setDate(new Date());
+    const ahora = dayjs();
+
+    setDate(ahora.toDate());
+
+    setEvents([
+      {
+        start: ahora.toDate(),
+        end: ahora.add(1, 'hour').toDate(),
+        title: 'Today',
+      },
+    ]);
   }, []);
 
+  // Limpiar el formulario
   const limpiarFormulario = () => {
     setNewEvent({
       title: '',
@@ -57,6 +64,7 @@ export default function Home() {
     setShowModal(false);
   };
 
+  // Añadir o actualizar un evento
   const handledAddEvent = () => {
     if (
       newEvent.title.trim() === '' ||
@@ -97,6 +105,7 @@ export default function Home() {
     limpiarFormulario();
   };
 
+  // Eliminar un evento
   const handleDeleteEvent = () => {
     if (editingIndex !== null) {
       const updatedEvents = [...events];
