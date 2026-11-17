@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  allowedDevOrigins: ["alexandra-virtualbox.tailf6d070.ts.net"],
   experimental: {
     agentFeedback: true,
   },
